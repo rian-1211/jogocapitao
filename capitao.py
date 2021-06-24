@@ -60,9 +60,12 @@ def jogo():
     pygame.mixer.music.play(-1)
     capitaoPosicaoX = largura * 0.25
     capitaoPosicaoY = altura * 0.5
+    capitaoLargura = 160
     movimentoX = 0
     vogaisPosicaoX = largura * 0.45
     vogaisPosicaoY = -220
+    vogaisLargura = 40
+    vogaisAltura = 250
     vogaisVelocidade = 5
 
     desvios = 0
@@ -90,3 +93,18 @@ def jogo():
         display.blit(capitao, (capitaoPosicaoX, capitaoPosicaoY))
         display.blit(vogais, (vogaisPosicaoX, vogaisPosicaoY))
         vogaisPosicaoY = vogaisPosicaoY + vogaisVelocidade
+
+        if vogaisPosicaoY > altura:
+            pygame.mixer.Sound.play(quedaSound)
+            vogaisPosicaoY = -220
+            vogaisVelocidade += 1
+            vogaisPosicaoX = random.randrange(0, largura-50)
+            desvios = desvios + 1
+        escrevendoPlacar(desvios)  
+        if capitaoPosicaoY < vogaisPosicaoY + vogaisAltura:
+            if capitaoPosicaoX < vogaisPosicaoX and capitaoPosicaoX+capitaoLargura > vogaisPosicaoX or vogaisPosicaoX+vogaisLargura > capitaoPosicaoX and vogaisPosicaoX+vogaisLargura < capitaoPosicaoX+capitaoLargura:
+                dead(desvios)  
+        pygame.display.update()
+        fps.tick(60)
+jogo()
+print("Volte sempre....")
