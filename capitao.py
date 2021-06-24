@@ -44,4 +44,49 @@ def message_display(text):
     display.blit(TextSurf, TextRect)
     pygame.display.update()
     time.sleep(3)
+    jogo()
+def dead(desvios):
+    pygame.mixer.Sound.play(geloSound)
+    pygame.mixer.music.stop()
+    message_display("Você Morreu com "+str(desvios)+" desvios")
+
+def escrevendoPlacar(desvios):
+    font = pygame.font.SysFont(None, 25)
+    texto = font.render("Desvios:"+str(desvios), True, branco)
+    display.blit(texto, (0, 0))
     
+def jogo():
+    pygame.mixer.music.load('assets/capitaoAmerica.mp3')
+    pygame.mixer.music.play(-1)
+    capitaoPosicaoX = largura * 0.25
+    capitaoPosicaoY = altura * 0.5
+    movimentoX = 0
+    vogaisPosicaoX = largura * 0.45
+    vogaisPosicaoY = -220
+    vogaisVelocidade = 5
+
+    desvios = 0
+
+    while True:
+        
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                quit()  
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_LEFT:
+                    movimentoX = -10
+                elif evento.key == pygame.K_RIGHT:
+                    movimentoX = 10
+            if evento.type == pygame.KEYUP:
+                movimentoX = 0
+        display.fill(branco)  
+        display.blit(fundo, (0, 0)) 
+        capitaoPosicaoX = capitaoPosicaoX + movimentoX
+        if capitaoPosicaoX < 0:
+            capitaoPosicaoX = 0
+        elif capitaoPosicaoX > 630:
+            capitaoPosicaoX = 630
+        display.blit(capitao, (capitaoPosicaoX, capitaoPosicaoY))
+        display.blit(vogais, (vogaisPosicaoX, vogaisPosicaoY))
+        vogaisPosicaoY = vogaisPosicaoY + vogaisVelocidade
