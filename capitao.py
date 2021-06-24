@@ -33,3 +33,15 @@ archive = open('records.txt', 'r')
 print(archive.read)
 archive.close()
 LimparTela()
+
+def text_objects(texto, fonte):
+    textSurface = fonte.render(texto, True, preto)
+    return textSurface, textSurface.get_rect()
+def message_display(text):
+    fonte = pygame.font.Font("freesansbold.ttf",50)
+    TextSurf, TextRect = text_objects(text, fonte)
+    TextRect.center = ((largura/2), (altura/2))
+    display.blit(TextSurf, TextRect)
+    pygame.display.update()
+    time.sleep(3)
+    
