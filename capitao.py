@@ -1,13 +1,4 @@
-import pygame
-import random
-import time
-pygame.init()
-import os
-import time
-geloSound = pygame.mixer.Sound("assets/acertoGelo.wav")
-quedaSound = pygame.mixer.Sound("assets/letraCaindo.wav")
-icone = pygame.image.load("assets/capitaoIcon.ico.png")
-pygame.display.set_caption("Capitão América do Rian")
+
 pygame.display.set_icon(icone)
 largura = 800
 altura = 600
